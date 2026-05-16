@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+<div class="row">
+  <div class="col-12 mb-3">
+    <h5>{{ descricao }}</h5>
+    <span class="text-muted"
+      >NCM {{ ncm }} — {{ ano }} — {{ "Exportação" if fluxo == "export" else
+      "Importação" }}
+    </span>
+  </div>
+
+  <div class="col-md-6 mb-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h6 class="card-title">Top 10 Países</h6>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>País</th>
+              <th>Valor FOB (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in dados_pais %}
+            <tr>
+              <td>{{ item.country }}</td>
+              <td>{{ "{:,}".format(item.metricFOB | int) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h6 class="card-title">Evolução Mensal</h6>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Mês</th>
+              <th>Valor FOB (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in dados_mensal %}
+            <tr>
+              <td>{{ item.monthNumber }}/{{ item.year }}</td>
+              <td>{{ "{:,}".format(item.metricFOB | int) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 mb-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title">Análise IA</h6>
+        <p class="card-text" style="white-space: pre-line">
+          {{ analise | safe }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <a href="/" class="btn btn-outline-dark">Nova consulta</a>
+  </div>
+</div>
+{% endblock %}

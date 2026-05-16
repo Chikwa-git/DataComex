@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Análise de Comércio Exterior</h5>
+
+        {% if erro %}
+        <div class="alert alert-danger">{{ erro }}</div>
+        {% endif %}
+
+        <form action="/analisar" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Código NCM</label>
+            <input
+              type="text"
+              name="ncm"
+              class="form-control"
+              placeholder="Ex: 84713012"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ano</label>
+            <input
+              type="text"
+              name="ano"
+              class="form-control"
+              placeholder="Ex: 2023"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Fluxo</label>
+            <select name="fluxo" class="form-select">
+              <option value="export">Exportação</option>
+              <option value="import">Importação</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-dark w-100">Analisar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
